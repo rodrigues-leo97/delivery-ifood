@@ -3,33 +3,26 @@ package dominio;
 import desafio_abs_delivery.enums.Bebidas;
 import desafio_abs_delivery.enums.TakeOutEatIn;
 import desafio_abs_delivery.enums.Tamanho;
+import desafio_abs_delivery.enums.TipoDeCopo;
 
 public class Bebida {
 	
-	private String tipo;
 	private Boolean isGelo;
 	private Bebidas sabor;
 	private Tamanho tamanho;
-	private TakeOutEatIn takeOutEatIn;
+	private TakeOutEatIn tampa;
+	private TipoDeCopo tipoDeCopo;
 
-	public Bebida(String tipo, Boolean isGelo, Bebidas sabor, Tamanho tamanho, TakeOutEatIn takeOutEatIn) {
+	public Bebida(Boolean isGelo, Bebidas sabor, Tamanho tamanho, TakeOutEatIn tampa, TipoDeCopo tipoDeCopo) {
 		super();
-		this.tipo = tipo;
 		this.isGelo = isGelo;
 		this.sabor = sabor;
 		this.tamanho = tamanho;
-		this.takeOutEatIn = takeOutEatIn;
+		this.tampa = tampa;
+		this.tipoDeCopo = tipoDeCopo;
 	}
 
 	public Bebida() {}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
 
 	public Bebidas getSabor() {
 		return sabor;
@@ -55,12 +48,27 @@ public class Bebida {
 		this.isGelo = isGelo;
 	}
 
-	public TakeOutEatIn getTakeOutEatIn() {
-		return takeOutEatIn;
+	public TakeOutEatIn getTampa() {
+		return tampa;
 	}
 
-	public void setTakeOutEatIn(TakeOutEatIn takeOutEatIn) {
-		this.takeOutEatIn = takeOutEatIn;
+	public void setTampa(TakeOutEatIn tampa) {
+		this.tampa = tampa;
+	}
+	
+
+	public TipoDeCopo getTipoDeCopo() {
+		return tipoDeCopo;
+	}
+
+	public void setTipoDeCopo(TipoDeCopo tipoDeCopo) {
+		this.tipoDeCopo = tipoDeCopo;
+	}
+
+	@Override
+	public String toString() {
+		return "Bebida [isGelo=" + isGelo + ", sabor=" + sabor + ", tamanho=" + tamanho + ", tipo da tampa="
+				+ tampa.getDescricao() + ", tipoDeCopo=" + tipoDeCopo + "]";
 	}
 
 }

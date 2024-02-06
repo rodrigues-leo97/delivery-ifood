@@ -3,6 +3,9 @@ package desafio_abs_delivery;
 import java.util.Scanner;
 
 import desafio_abs_delivery.enums.Bebidas;
+import desafio_abs_delivery.enums.TakeOutEatIn;
+import desafio_abs_delivery.enums.Tamanho;
+import desafio_abs_delivery.enums.TipoDeCopo;
 import dominio.Bebida;
 
 public class Main {
@@ -24,13 +27,15 @@ public class Main {
 			
 			int opcaoBebida = sc.nextInt();
 			switch(opcaoBebida) {
-			case 1 -> bebida.setSabor(Bebidas.COCA);
-			case 2 -> bebida.setSabor(Bebidas.GUARANA);
-			case 3 -> bebida.setSabor(Bebidas.UVA);
-			case 4 -> bebida.setSabor(Bebidas.LARANJA);
+				case 1 -> bebida.setSabor(Bebidas.COCA);
+				case 2 -> bebida.setSabor(Bebidas.GUARANA);
+				case 3 -> bebida.setSabor(Bebidas.UVA);
+				case 4 -> bebida.setSabor(Bebidas.LARANJA);
+				default -> {
+					System.out.println("Opção inválida, comece novamente");
+					System.exit(0);
+				}
 			}
-			
-			// System.out.println(bebida);
 			
 			System.out.println("Deseja gelo em sua bebida?");
 			System.out.println("S - Sim");
@@ -40,7 +45,39 @@ public class Main {
 			if(Character.toUpperCase(isGelo) == 'S') bebida.setIsGelo(true);
 			else if (Character.toUpperCase(isGelo) == 'N') bebida.setIsGelo(false);
 			else bebida.setIsGelo(true);
-
+			
+			System.out.println("Qual tamanho vc deseja?");
+			char tamanhoBebida;
+			
+			if(opcaoBebida == 1 || opcaoBebida == 2) {
+				System.out.println("P -> " + Tamanho.PEQUENO.getTamanho());
+				System.out.println("M -> " + Tamanho.MEDIO.getTamanho());
+				System.out.println("G -> " + Tamanho.GRANDE.getTamanho());
+				bebida.setTipoDeCopo(TipoDeCopo.PAPEL);
+				
+			} else {
+				System.out.println("P -> " + Tamanho.PEQUENO.getTamanho());
+				System.out.println("M -> " + Tamanho.MEDIO.getTamanho());
+				bebida.setTipoDeCopo(TipoDeCopo.PLASTICO);
+			}
+			
+			tamanhoBebida = sc.next().charAt(0);
+			switch(Character.toUpperCase(tamanhoBebida)) {
+				case 'P' -> bebida.setTamanho(Tamanho.PEQUENO);
+				case 'M' -> bebida.setTamanho(Tamanho.MEDIO);
+				case 'G' -> bebida.setTamanho(Tamanho.GRANDE);
+			}
+			
+			System.out.println("Deseja que o pedido seja embalado para viagem?");
+			System.out.println("S - SIM");
+			System.out.println("N - NAO");
+			char isViagem = sc.next().charAt(0);
+			switch(Character.toUpperCase(isViagem)) {
+				case 'S' -> bebida.setTampa(TakeOutEatIn.TAKE_OUT);
+				case 'N' -> bebida.setTampa(TakeOutEatIn.EAT_IN);
+			}
+			
+			System.out.println(bebida);
 
 	}
 
