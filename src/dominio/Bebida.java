@@ -8,14 +8,16 @@ import desafio_abs_delivery.enums.TipoDeCopo;
 public class Bebida {
 	
 	private Boolean isGelo;
+	private Integer quantidadeGelo;
 	private Bebidas sabor;
 	private Tamanho tamanho;
 	private TakeOutEatIn tampa;
 	private TipoDeCopo tipoDeCopo;
 
-	public Bebida(Boolean isGelo, Bebidas sabor, Tamanho tamanho, TakeOutEatIn tampa, TipoDeCopo tipoDeCopo) {
+	public Bebida(Boolean isGelo, Integer quantidadeGelo, Bebidas sabor, Tamanho tamanho, TakeOutEatIn tampa, TipoDeCopo tipoDeCopo) {
 		super();
 		this.isGelo = isGelo;
+		this.quantidadeGelo = quantidadeGelo;
 		this.sabor = sabor;
 		this.tamanho = tamanho;
 		this.tampa = tampa;
@@ -48,6 +50,14 @@ public class Bebida {
 		this.isGelo = isGelo;
 	}
 
+	public Integer getQuantidadeGelo() {
+		return quantidadeGelo;
+	}
+
+	public void setQuantidadeGelo(Integer quantidadeGelo) {
+		this.quantidadeGelo = quantidadeGelo;
+	}
+
 	public TakeOutEatIn getTampa() {
 		return tampa;
 	}
@@ -67,7 +77,7 @@ public class Bebida {
 
 	@Override
 	public String toString() {
-		return "Bebida [isGelo=" + isGelo + ", sabor=" + sabor + ", tamanho=" + tamanho + ", tipo da tampa="
+		return "Bebida [isGelo=" + isGelo + ", quantidadeGelo=" + quantidadeGelo + ", sabor=" + sabor + ", tamanho=" + tamanho + ", tipo da tampa="
 				+ tampa.getDescricao() + ", tipoDeCopo=" + tipoDeCopo + "]";
 	}
 

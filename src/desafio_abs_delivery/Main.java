@@ -13,64 +13,57 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("Seja bem vindo ao sistema ABS");
-		System.out.println("O sistema nº 1 em bebidas do Brasil");
+		mensagemBoasVindas();
 		
 		Boolean continuarEscolhendo = false;
 		Bebida bebida = new Bebida();
 		
-			System.out.println("Qual o número da bebida que deseja escolher?");
-			System.out.println("1 - Refrigerante Coca");
-			System.out.println("2 - Refrigerante Guaraná");
-			System.out.println("3 - Suco de Uva");
-			System.out.println("4 - Suco de Laranja");
+			apresentarBebidas();
 			
 			int opcaoBebida = sc.nextInt();
-			switch(opcaoBebida) {
-				case 1 -> bebida.setSabor(Bebidas.COCA);
-				case 2 -> bebida.setSabor(Bebidas.GUARANA);
-				case 3 -> bebida.setSabor(Bebidas.UVA);
-				case 4 -> bebida.setSabor(Bebidas.LARANJA);
-				default -> {
-					System.out.println("Opção inválida, comece novamente");
-					System.exit(0);
-				}
+			while(opcaoBebida < 1 || opcaoBebida > 4) {
+				System.out.println("Opção inválida, digite novamente");
+				opcaoBebida = sc.nextInt();
 			}
+			bebida.setSabor(selecionarBebida(opcaoBebida));
 			
-			System.out.println("Deseja gelo em sua bebida?");
-			System.out.println("S - Sim");
-			System.out.println("N - Não");
+			perguntarSobreGeloNaBebida();
 			char isGelo = sc.next().charAt(0);
+			while(Character.toUpperCase(isGelo) != 'S' && Character.toUpperCase(isGelo) != 'N') {
+				System.out.println("Opção inválida, digite novamente");
+				isGelo = sc.next().charAt(0);
+			}
 			
 			if(Character.toUpperCase(isGelo) == 'S') bebida.setIsGelo(true);
 			else if (Character.toUpperCase(isGelo) == 'N') bebida.setIsGelo(false);
 			else bebida.setIsGelo(true);
 			
-			System.out.println("Qual tamanho vc deseja?");
-			char tamanhoBebida;
+			bebida.setQuantidadeGelo(0);
 			
+			System.out.println("Qual tamanho vc deseja?");
 			if(opcaoBebida == 1 || opcaoBebida == 2) {
-				System.out.println("P -> " + Tamanho.PEQUENO.getTamanho());
-				System.out.println("M -> " + Tamanho.MEDIO.getTamanho());
-				System.out.println("G -> " + Tamanho.GRANDE.getTamanho());
+				exibirOpcoesTamanhoRefrigerante();
 				bebida.setTipoDeCopo(TipoDeCopo.PAPEL);
+				if(bebida.getIsGelo()) {
+					bebida.setQuantidadeGelo(6);
+				}
 				
 			} else {
-				System.out.println("P -> " + Tamanho.PEQUENO.getTamanho());
-				System.out.println("M -> " + Tamanho.MEDIO.getTamanho());
+				exibirOpcoesTamanhoSuco();
 				bebida.setTipoDeCopo(TipoDeCopo.PLASTICO);
+				if(bebida.getIsGelo()) {
+					bebida.setQuantidadeGelo(12);
+				}
 			}
 			
-			tamanhoBebida = sc.next().charAt(0);
-			switch(Character.toUpperCase(tamanhoBebida)) {
-				case 'P' -> bebida.setTamanho(Tamanho.PEQUENO);
-				case 'M' -> bebida.setTamanho(Tamanho.MEDIO);
-				case 'G' -> bebida.setTamanho(Tamanho.GRANDE);
+			char tamanhoBebida = sc.next().charAt(0);
+			while(Character.toUpperCase(tamanhoBebida) != 'P' && Character.toUpperCase(tamanhoBebida) != 'M' && Character.toUpperCase(tamanhoBebida) != 'G') {
+				System.out.println("Opção inválida, digite novamente");
+				tamanhoBebida = sc.next().charAt(0);
 			}
+			bebida.setTamanho(selecionarTamanhoBebida(tamanhoBebida));
 			
-			System.out.println("Deseja que o pedido seja embalado para viagem?");
-			System.out.println("S - SIM");
-			System.out.println("N - NAO");
+			perguntarPedidoParaViagem();
 			char isViagem = sc.next().charAt(0);
 			switch(Character.toUpperCase(isViagem)) {
 				case 'S' -> bebida.setTampa(TakeOutEatIn.TAKE_OUT);
@@ -79,6 +72,62 @@ public class Main {
 			
 			System.out.println(bebida);
 
+	}
+
+	private static void perguntarPedidoParaViagem() {
+		System.out.println("Deseja que o pedido seja embalado para viagem?");
+		System.out.println("S - SIM");
+		System.out.println("N - NAO");
+	}
+
+	private static void exibirOpcoesTamanhoSuco() {
+		System.out.println("P -> " + Tamanho.PEQUENO.getTamanho() + "ml");
+		System.out.println("M -> " + Tamanho.MEDIO.getTamanho() + "ml");
+	}
+
+	private static void exibirOpcoesTamanhoRefrigerante() {
+		exibirOpcoesTamanhoSuco();
+		System.out.println("G -> " + Tamanho.GRANDE.getTamanho() + "ml");
+	}
+
+	private static void perguntarSobreGeloNaBebida() {
+		System.out.println("Deseja gelo em sua bebida?");
+		System.out.println("S - Sim");
+		System.out.println("N - Não");
+	}
+
+	private static void mensagemBoasVindas() {
+		System.out.println("Seja bem vindo ao sistema ABS");
+		System.out.println("O sistema nº 1 em bebidas do Brasil");
+	}
+
+	private static void apresentarBebidas() {
+		System.out.println("Qual o número da bebida que deseja escolher?");
+		System.out.println("1 - Refrigerante Coca");
+		System.out.println("2 - Refrigerante Guaraná");
+		System.out.println("3 - Suco de Uva");
+		System.out.println("4 - Suco de Laranja");
+	}
+
+	private static Tamanho selecionarTamanhoBebida(char tamanhoBebida) {
+		switch(Character.toUpperCase(tamanhoBebida)) {
+			case 'P' -> {return Tamanho.PEQUENO;}
+			case 'M' -> {return Tamanho.MEDIO;}
+			case 'G' -> {return Tamanho.GRANDE;}
+		}
+		return null;
+	}
+
+	private static Bebidas selecionarBebida(int opcaoBebida) {
+		switch(opcaoBebida) {
+			case 1 -> { return Bebidas.COCA; }
+			case 2 -> { return Bebidas.GUARANA; }
+			case 3 -> { return Bebidas.UVA; }
+			case 4 -> { return Bebidas.LARANJA; }
+			default -> {
+				return null;
+			}
+		}
 	}
 
 }
